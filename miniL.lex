@@ -7,11 +7,10 @@
 %}
    /* some common rules */
 
-LETTER				[a-zA-Z]
-DIGIT				[0-9]
-ID					[a-zA-Z][_a-zA-Z0-9]*[a-zA-Z0-9]
-NUM					[0-9]+
-INV					()|({ID}_)|
+LETTER				([a-zA-Z])
+DIGIT				([0-9])
+ID					([a-zA-Z]+(_+[a-zA-Z0-9]+)*)
+NUM					([0-9]+)
 
 %%
    /* specific lexer rules in regex */
@@ -21,7 +20,8 @@ beginparams			{pos += yyleng; printf("BEGIN_PARAMS\n");}
 endparams			{pos += yyleng; printf("END_PARAMS\n");}
 beginlocals			{pos += yyleng; printf("BEGIN_LOCALS\n");}
 endlocals			{pos += yyleng; printf("END_LOCALS\n");}
-beginbody			{pos += yyleng; printf("END_BODY\n");}
+beginbody			{pos += yyleng; printf("BEGIN_BODY\n");}
+endbody				{pos += yyleng; printf("END_BODY\n");}
 integer				{pos += yyleng; printf("INTEGER\n");}
 array				{pos += yyleng; printf("ARRAY\n");}
 enum				{pos += yyleng; printf("ENUM\n");}
@@ -91,6 +91,8 @@ int main(int argc, char ** argv)
 	}
 	else{
 		for(i = 1; i < argc; i++){
+			printf("Processing file %s!!!!!!+++++++++++++\n\n\n\n\n\n", argv[i]);
+		
 			FILE* f = fopen(argv[i], "r");
 			
 			if(!f){
