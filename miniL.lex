@@ -1,16 +1,14 @@
-   /* cs152-miniL phase1 */
-   
+   /* cs152-miniL phase2 */
+
+%option noyywrap
+
 %{   
    /* write your C code here for definitions of variables and including headers */
 	int pos = 1;
 	int my_yylineno = 1;
 %}
 
-%union{
-	char* s;
-	int d;
-}
-   /* some common rules */
+/* some common rules */
 
 LETTER				([a-zA-Z])
 DIGIT				([0-9])
@@ -50,11 +48,11 @@ true				{pos += yyleng; return("TRUE");}
 false				{pos += yyleng; return("FALSE");}
 return				{pos += yyleng; return("RETURN");}
 
-"-"					{pos += yyleng; return("SUB");}
-"+"					{pos += yyleng; return("ADD");}
-"*"					{pos += yyleng; return("MULT");}
-"/"					{pos += yyleng; return("DIV");}
-"%"					{pos += yyleng; return("MOD");}
+"-"					{pos += yyleng; return('-');}
+"+"					{pos += yyleng; return('+');}
+"*"					{pos += yyleng; return('*');}
+"/"					{pos += yyleng; return('/');}
+"%"					{pos += yyleng; return('%');}
 
 "=="				{pos += yyleng; return("EQ");}
 "<>"				{pos += yyleng; return("NEQ");}
@@ -73,7 +71,7 @@ return				{pos += yyleng; return("RETURN");}
 ":="				{pos += yyleng; return("ASSIGN");}
 
 {ID}				{pos += yyleng; yylval.s = yytext; return("IDENT");}
-{NUM}				{pos += yyleng; yylval.d = atoi(yytext); return("NUMBER %s", yytext);}
+{NUM}				{pos += yyleng; yylval.d = atoi(yytext); return("NUMBER");}
 
 [{DIGIT}_]{ID}		{printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n",my_yylineno, pos, yytext); return 1;}
 {ID}_				{printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n",my_yylineno, pos, yytext); return 1;}
@@ -86,29 +84,3 @@ return				{pos += yyleng; return("RETURN");}
 .					{printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n",my_yylineno, pos, yytext); return 1;}
 
 %%
-	/* C functions used in lexer */
-int main(int argc, char ** argv)
-{
-	int i;
-	if(argc < 2){
-		my_yylineno = 1;
-		yylex();
-	}
-	else{
-		for(i = 1; i < argc; i++){
-			printf("Processing file %s!!!!!!+++++++++++++\n\n\n\n\n\n", argv[i]);
-		
-			FILE* f = fopen(argv[i], "r");
-			
-			if(!f){
-				perror(argv[1]);
-				return 1;
-			}
-			
-			yyrestart(f);
-			my_yylineno = 1;
-			yylex();
-			fclose(f);
-		}
-	}
-}
