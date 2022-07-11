@@ -40,7 +40,7 @@ func: FUNCTION IDENT SEMICOLON BEGIN_PARAMS decls END_PARAMS BEGIN_LOCALS decls 
 decl: idents COLON decl_ {printf("decl -> idents COLON decl_\n");};
 
 decl_: ENUM L_PAREN idents R_PAREN {printf("decl_ -> ENUM L_PAREN idents R_PAREN\n");}
-	| INTEGER printf{printf("decl_ -> INTEGER\n");}
+	| INTEGER {printf("decl_ -> INTEGER\n");}
 	| ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("decl_ -> ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER\n");}
 	;
 	
