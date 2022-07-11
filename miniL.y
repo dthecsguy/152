@@ -71,43 +71,43 @@ comp: EQ {printf("comp -> EQ\n");}
 expr: me mes {printf("expr -> me mes\n");};
 
 term: nege nege_o {printf("term -> nege nege_o\n");}
-    | IDENT L_PAREN exprs R_PAREN {printf("term -> IDENT L_PAprintfprintfREN exprs R_PAREN\n");}
+    | IDENT L_PAREN exprs R_PAREN {printf("term -> IDENT L_PAREN exprs R_PAREN\n");}
     ;
 	
 var: IDENT var_ {printf("var -> IDENT var_\n");};
 
-var_: /*empty*/ {printfprintf("var_ -> epsilon\n");}
-	| L_SQUARE_BRACKET expr R_SQUARE_BRACKET {printfprintf("var_ -> L_SQUARE_BRACKET expr R_SQUARE_BRACKET\n");}
+var_: /*empty*/ {printf("var_ -> epsilon\n");}
+	| L_SQUARE_BRACKET expr R_SQUARE_BRACKET {printf("var_ -> L_SQUARE_BRACKET expr R_SQUARE_BRACKET\n");}
 	;
 	
-iff: IF be THEN stmts if_ ENDIF {printfprintf("iff -> IF be THEN stmts if_ ENDIF\n");};
+iff: IF be THEN stmts if_ ENDIF {printf("iff -> IF be THEN stmts if_ ENDIF\n");};
 
-if_: /*empty*/ {printfprintf("if_ -> epsilon\n");}
-	| ELSE stmts {printfprintf("if_ -> ELSE stmts\n");}
+if_: /*empty*/ {printf("if_ -> epsilon\n");}
+	| ELSE stmts {printf("if_ -> ELSE stmts\n");}
 	;
 	
-me: term terms {printfprintf("me -> term terms\n");};
+me: term terms {printf("me -> term terms\n");};
 	
-mes: '+' me {printfprintf("mes -> \'+\' me\n");}
-	| '-' me {printfprintf("mes -> \'-\' me\n");}
+mes: '+' me {printf("mes -> \'+\' me\n");}
+	| '-' me {printf("mes -> \'-\' me\n");}
 	;
 	
-terms: '*' term {printfprintf("terms -> \'*\' term\n");}
-	| '/' term {printfprintf("terms -> \'/\' term\n");}
-	| '%' term {printfprintf("terms -> \'%\' term\n");}
+terms: '*' term {printf("terms -> \'*\' term\n");}
+	| '/' term {printf("terms -> \'/\' term\n");}
+	| '%' term {printf("terms -> \'%\' term\n");}
 	;
 	
-nege: /*empty*/ {printfprintf("nege -> epsilon\n");}
-	| '-' {printfprintf("nege -> \'-\'\n");}
+nege: /*empty*/ {printf("nege -> epsilon\n");}
+	| '-' {printf("nege -> \'-\'\n");}
 	;
 
-nege_o: var {printfprintf("nege_o -> var\n");}
-	| NUMBER {printfprintf("nege_o -> NUMBER\n");}
-	| L_PAREN expr R_PAREN {printfprintf("nege_o -> L_PAREN expr R_PAREN\n");}
+nege_o: var {printf("nege_o -> var\n");}
+	| NUMBER {printf("nege_o -> NUMBER\n");}
+	| L_PAREN expr R_PAREN {printf("nege_o -> L_PAREN expr R_PAREN\n");}
 	;
 	
-exprs: /*empty*/ {printfprintf("exprs -> epsilon\n");}
-	| expr exprs_ {printfprintf("exprs -> expr exprs_\n");}
+exprs: /*empty*/ {printf("exprs -> epsilon\n");}
+	| expr exprs_ {printf("exprs -> expr exprs_\n");}
 	;
 	
 exprs_: /*empty*/ {printf("exprs_ -> epsilon\n");}
