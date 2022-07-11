@@ -4,8 +4,9 @@
 
 %{   
    /* write your C code here for definitions of variables and including headers */
-	int pos = 1;
+   #include "y.tab.h"
 	int my_yylineno = 1;
+	int pos = 1;
 %}
 
 /* some common rules */
@@ -73,8 +74,8 @@ return				{pos += yyleng; return("RETURN");}
 {ID}				{pos += yyleng; yylval.s = yytext; return("IDENT");}
 {NUM}				{pos += yyleng; yylval.d = atoi(yytext); return("NUMBER");}
 
-[{DIGIT}_]{ID}		{printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n",my_yylineno, pos, yytext); return 1;}
-{ID}_				{printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n",my_yylineno, pos, yytext); return 1;}
+[{DIGIT}_]{ID}		{printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", my_yylineno, pos, yytext); return 1;}
+{ID}_				{printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", my_yylineno, pos, yytext); return 1;}
 
 
 ##.*\n				{my_yylineno++; pos = 1; /**/}

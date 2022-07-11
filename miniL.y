@@ -49,8 +49,8 @@ decl_: ENUM L_PAREN idents R_PAREN
 	
 stmt: var ASSIGN expr
 	| iff
-	| WHILE bool-expr BEGINLOOP stmts ENDLOOP
-	| DO BEGINLOOP stmts ENDLOOP WHILE bool-expr
+	| WHILE be BEGINLOOP stmts ENDLOOP
+	| DO BEGINLOOP stmts ENDLOOP WHILE be
 	| READ vars
 	| WRITE vars
 	| CONTINUE
@@ -88,6 +88,8 @@ iff: IF be THEN stmts if_ ENDIF;
 if_: /*empty*/
 	| ELSE stmts
 	;
+	
+me: term terms;
 	
 mes: '+' me
 	| '-' me
@@ -139,10 +141,11 @@ vars_: /*empty*/
 	| COMMA var vars_
 	;
 
-idents: ident idents_;
+idents: IDENT idents_;
 
 idents_: /*empty*/
-	| COMMA ident idents_
+	| COMMA IDENT idents_
+	| COMMA IDENT idents_
 	;
 	
 stmts: stmt SEMICOLON stmts_;
@@ -160,10 +163,9 @@ decls_: /*empty*/
 %%
 	/* C functions used in parser */
 int main(int argc, char ** argv)
-{
+{		
 	int i;
 	if(argc < 2){
-		my_yylineno = 1;
 		yyparse();
 	}
 	else{
@@ -178,9 +180,13 @@ int main(int argc, char ** argv)
 			}
 			
 			yyrestart(f);
-			my_yylineno = 1;
 			yyparse();
 			fclose(f);
 		}
 	}
+}
+
+void yyerror (char const *s)
+{
+  fprintf (stderr, "There was an error\n: %s", s);
 }
