@@ -27,8 +27,7 @@
 %start prog
 
 %%
-prog: /*empty*/ {printf("prog -> epsilon\n");}
-	| funcs {printf("prog -> funcs\n");};
+prog: funcs {printf("prog -> funcs\n");};
 
 funcs: func funcs_ {printf("funcs -> func funcs_\n");};
 
