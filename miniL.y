@@ -1,12 +1,15 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>
+	int yydebug = 1;
 %}
 
 %union{
 	char* s;
 	int d;
 }
+
+%debug
 
 /*declare tokens*/
 %token COMMA COLON SEMICOLON RETURN FALSE TRUE NOT OR AND WRITE READ CONTINUE BEGIN_BODY END_LOCALS END_PARAMS FUNCTION
